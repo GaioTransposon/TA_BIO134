@@ -172,9 +172,8 @@ Created on Thu Sep 22 14:28:52 2022
 #     print(f)
 # =============================================================================
 
-# Exercises: looping through lists
-
 # =============================================================================
+# # Exercises: looping through lists
 # # Exercise: calculation with list elements
 # lys = [5, 7, 2, 9, 8, 9, 3, 4, 2, 3, 2, 7, 7, 5]
 # res=1
@@ -183,17 +182,37 @@ Created on Thu Sep 22 14:28:52 2022
 # print(res)
 # =============================================================================
 
+# Exercise: loop and if
 # =============================================================================
-# # Exercise: loop and if
 # lys = [5, 7, 2, 9, 8, 9, 3, 4, 2, 3, 2, 7, 7, 5]
 # res=1
 # for l in lys[lys.index(3)::]: 
 #     res = res*l
 # print(res)
-# # mylist.index(x)   where x is the value (can also be a string)
-# # lys[x:y:z]        where x,y,z are start, stop and interval of the list
+# =============================================================================
+# mylist.index(x)   where x is the value (can also be a string)
+# lys[x:y:z]        where x,y,z are start, stop and interval of the list
+
+
+
+
+
+# =============================================================================
+# def multiplyList(any_list):
+#     # Multiply elements one by one
+#     result = 1
+#     for x in any_list:
+#         if x==3:
+#             stored = x
+#             if stored==3:
+#                 result = result * x
+#                 return result
+# lys = [3, 3, 2]
+# print(multiplyList(lys))
 # 
 # =============================================================================
+
+
 
 
 # Looping through lists using indices

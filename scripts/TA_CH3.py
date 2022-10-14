@@ -310,7 +310,7 @@ for j in range(10000):
     for i in range(400):
         # guess the suit of a card
         r=rd.randint(1,4)
-        if r==1:     
+        if r==3:     
             correct+=1
     if correct >=117:
         at_least_117+=1

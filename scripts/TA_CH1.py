@@ -117,16 +117,17 @@ Created on Thu Sep 22 12:57:47 2022
 
 # Basic operations in Python 
     
+# Input: 
+# Make a program that asks the user for a float, squares this float, 
+# converts the outcome to an integer and prints this integer. 
+
 # =============================================================================
-# # Input: 
-# # Make a program that asks the user for a float, squares this float, 
-# # converts the outcome to an integer and prints this integer. 
-# 
 # a = input("give me a float ")
+# a=float(a)
 # 
 # if(type(a) == float):
-#     print('This is a float')      <------------------------------------------------------------- not working 
-#     squared = a**0.5
+#     print('This is a float')      
+#     squared = a**2
 #     integer = int(squared)
 #     print(integer)
 #     
@@ -234,7 +235,6 @@ Created on Thu Sep 22 12:57:47 2022
 #     d_map = -1/2*np.log(1-2*f_rec) 
 #     print('The map disctance d: ', d_map) 
 # =============================================================================
-
 
 
 
