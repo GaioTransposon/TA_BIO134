@@ -215,7 +215,6 @@ Created on Tue Oct 11 11:43:44 2022
 #     print('they are the same')
 # =============================================================================
 
-
 # =============================================================================
 # # Looping through lists of lists (video)
 # 
@@ -306,8 +305,17 @@ Created on Tue Oct 11 11:43:44 2022
 # =============================================================================
 
 # =============================================================================
-# # Exercise: copy  ???????????????????????????????????
+# # Exercise: copy
 # my_file = open('/Users/dgaio/Downloads/crick.txt')
+# lines = my_file.readlines()
+# s=''
+# for line in lines: 
+#     print(line)
+#     s+= line.strip()+' '
+# print(s)
+# =============================================================================
+
+# =============================================================================
 # lines = my_file.readlines()
 # print(str(lines).strip("'[]"))
 # my_file.close()
@@ -415,21 +423,29 @@ Created on Tue Oct 11 11:43:44 2022
 # print(both[1131])
 # =============================================================================
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# =============================================================================
+# # [Advanced] Gamow's diamonds
+# bases = 'ATGC'
+# complements = 'TACG'
+# diamonds = {}
+# 
+# for i, b1 in enumerate(bases):
+#     for j, b2 in enumerate(bases):
+#         for k, b3 in enumerate(bases):
+#             codon = b1+b2+b3
+#             diamond = [b1+b2+complements[k]+complements[j], b1+complements[j]+complements[k]+b2, \
+#                        complements[k]+complements[j]+b1+b2, complements[k]+b2+b1+complements[j]]
+#             diamond.sort()
+#             diamond = tuple(diamond)
+#             print(diamond)
+#             if not diamond in diamonds:
+#                 diamonds[diamond] = []
+#             diamonds[diamond].append(codon)
+#             diamonds[diamond].sort()               
+#     
+# print(diamonds)
+# codonList = sorted(list(diamonds.values()))
+# =============================================================================
 
 
 

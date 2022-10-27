@@ -1,0 +1,14 @@
+LOCUS       B4F440_HOMNE             226 aa                     UNK 23-SEP-2008
+DEFINITION  RecName: Full=ATP synthase subunit a
+.
+.
+.
+.
+     TRANSMEM        191..222
+                     /description="Helical. {ECO:0000256|SAM:Phobius}."
+ORIGIN
+        1 mnenlfasfi aptilglpaa vliilfppll iptskylinn rlittqqwli kltskqmmam
+       61 hntkgrtwsl mlvsliifit ttnllgllph sftpttqlsm nlamaiplwa gavimgfrsk
+      121 iknalahflp qgtptplipm lviietisll iqpvalavrl tanitaghll mhlignatla
+      181 mstinlpstl iiftilillt ileiavaliq ayvftllvsl ylhdnt
+//
