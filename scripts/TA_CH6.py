@@ -286,21 +286,22 @@ Created on Fri Oct 14 19:07:47 2022
 # cdn['gaa'] = cdn['gag'] = 'E glutamic acid'
 # cdn['ggt'] = cdn['ggc'] = cdn['gga'] = cdn['ggg'] = 'G glycine'
 # 
-# from collections import defaultdict
+# #print(cdn)
 # 
-# d = defaultdict(list)
-# 
-# # loop to access dictionary:
-# for key, value in cdn.items():
-# 
-#     d[value[2:]].append(key)
-#      
-# print(dict(d))
+# new={}
+# for a in cdn: 
+#     #print(a, cdn[a])
 #     
-# dict1 = sorted(d.items())
-# print(dict1)
+#     long=cdn[a]
+# 
+#     
+#     if long not in new:
+#         new[long]=[a]
+#     else: 
+#         new[long].append(a)
+# print(new)
+# 
 # =============================================================================
-
 # =============================================================================
 # # Exercise: Creating strings
 # s = 'ztvnenejsncejajdncalkjalymmxndjfbfbvsjdlfjbbaldkjfnlaqeqwqwplnnnel'

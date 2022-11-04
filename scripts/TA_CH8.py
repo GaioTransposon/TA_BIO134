@@ -1,3 +1,4 @@
+
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
@@ -75,11 +76,9 @@ y[1]=-1
 print(x)
 print(y)
 
-
-# another way to generate arrays (these are automatically floating pointds!)
+# another way to generate arrays (these are automatically floating points!)
 y=np.linspace(0.0,9.0,100)   # both start and endpoint are included ! 
 print(y)
-
 
 # create arrays with more than one dimension.
 xx = np.zeros(shape=(3,4),dtype=float)
@@ -261,14 +260,15 @@ h=1-h   # red becomes anti-red , greens become magenta, blues becopme yellows
 # SMOOTHING 
 h = img.imread(my_dir+'Haeckel.png')
 #pl.imshow(h)
-h=h[150:400,30:420]   #30:420 x range; 150:400 y range; y range comes first
+h=h[150:400,30:420] # y-range (vertical) comes first: 150:400; 30:420 x range; 
 #pl.imshow(h)
-nsum=0*h
+nsum=0*h     # array of the same size as h, but full of zeros 
 P = h.shape[0]
 Q = h.shape[1]
 for s in range(5): # smoothing the image 5 times 
-    for p in range(1,P-1):
-        for q in range(1,Q-1):
+    for p in range(P-1):   # range(P)=0,249    range(P-1)=0,248
+        for q in range(Q-1):   # range(P) is 0 to 249 ; range(P-1) is 0 to 248
+            
             nsum[p,q] = h[p+1,q] + h[p-1,q] + h[p,q+1] + h[p,q-1]
 
 
@@ -335,37 +335,114 @@ for i in h_sub2:
 #print(len(keep_red))
 #print(np.mean(keep_red))   
 ##############################################################################
+import matplotlib.pyplot as pl
+import matplotlib.image as img
+
+h = img.imread(my_dir+'Haeckel.png')
+
+# print(h)   # will print the array
+# print(h[0])    # will print the first row (all three colors given)
+# print(h[0,0])    # will print just 1 pixel , first is y then it's x coordinate
+# print(h[0,0,0]) # will give R channnel 
+# print(h.shape)
+
+print(h)
+print('these are the RGB values for the whole first row',h[0])
+print('these are the RGB values for the pixel at first row and first column',h[0,0])
+print('these is the R channel value of that first pixel (first row first col) ',h[0,0,0])
+
+# for i in h: 
+#     print(i[0])  # red
+#     print(i[1])  # blue
+#     print(i[2])  # green
+#     print(i[3])  # transparency
+##############################################################################
+# Smoothing: video 
+
+import matplotlib.pyplot as pl
+import matplotlib.image as img
+
+h = img.imread(my_dir+'Haeckel.png')
+#h=h[150:400,30:420]    # y range: 150 to 400; x range: 30 to 420
+
+h=h[220:270,350:380]      # h[220:270,350:380]   
+#pl.imshow(h)
+#pl.show()
+
+nsum=h*0
+print(nsum)
+
+R = h.shape[0]
+C = h.shape[1]
+
+for s in range(10):
+    for r in range(1, R-1):       # which is is 1, 2 
+        for c in range(1, C-1):   # which is is 1, 2 
+            print(r,c,"c")        # al possibilities are: 1,1 ; 1,2 ; 2,1 ; 2,2
+                                                    
+            # sum of the neighbours of one pixel 
+            nsum[r,c] = h[r+1,c] + h[r-1,c] + h[r,c+1] + h[r,c-1]
+            # nsum[1,1] = h[2,1] + h[0,1] + h[1,2] + h[1,0]      # 1,1 
+            # nsum[1,2] = h[2,2] + h[0,2] + h[1,3] + h[1,1]       # 1,2
+            # nsum[2,1] = h[3,1] + h[1,1] + h[2,2] + h[2,0]       # 1,2
+            # nsum[2,2] = h[3,2] + h[1,2] + h[2,3] + h[2,1]       # 2,2
+
+    h = (h + nsum/4)/2
+
+#pl.imshow(h)
+#pl.show()
+##############################################################################
 # Exercise: smoothing
+h = img.imread(my_dir+'stinkbug.png')
+#pl.imshow(h)
+#pl.show()
+print(h)
+new=h*1
+R, C, color = h.shape
+print(new)
 
+for r in range(1, R-1):       # which is is 1, 2 
+    for c in range(1, C-1):   # which is is 1, 2 
+                                                
+        # ave
+        new[r,c] = (h[r-1,c+1] + h[r,c+1] + h[r+1,c+1]+\
+               h[r-1,c] + h[r,c] + h[r+1,c] +\
+               h[r-1,c-1] + h[r,c-1] + h[r+1,c-1])/9
 
+print ('red boundary pixel 5,499:',new[5,499,0])
+print ('green, position 181,260:', new[181,260,1])
+print ('mean pixel value:',np.mean(new))
+##############################################################################
+ # Speed 
+import time
+start = time.time()
+# do stuff here 
+end = time.time()
+print("The time passed is", end - start)
+##############################################################################
+# Plotting commands
+import matplotlib.pyplot as pl
+import numpy as np
+import numpy.random as ran
 
+halflife = 5.7
+tau = halflife/np.log(2)
 
+t = np.linspace(0,20,21)
+n = np.exp(-t/tau)
+dn = 0.1 * n**.5
+noise = ran.standard_normal(len(n)) * dn
+n += noise
 
+pl.plot(t,n,'o')
+pl.errorbar(t,n,yerr=dn,marker='o',linestyle='none',label='Carbon 14')
+pl.xlim(np.amin(t)-0.5,np.amax(t)+0.5)
+pl.xlabel('Time (thousands of years)')
+pl.ylabel('Relative abundance')
+pl.legend()
+pl.title('Radioactive decay')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+pl.show()
 
 
 
