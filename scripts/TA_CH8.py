@@ -358,7 +358,6 @@ print('these is the R channel value of that first pixel (first row first col) ',
 #     print(i[3])  # transparency
 ##############################################################################
 # Smoothing: video 
-
 import matplotlib.pyplot as pl
 import matplotlib.image as img
 
@@ -443,7 +442,32 @@ pl.legend()
 pl.title('Radioactive decay')
 
 pl.show()
+##############################################################################
+# Nautilus exercise 
+from numpy import linspace, pi, cos, sin
+import matplotlib.pyplot as pl
 
+phi = (1+5**.5)/2
+n = linspace(0,1,100)
+print(n)
+x = n**.5 * cos(2*pi*phi*n)
+y = n**.5 * sin(2*pi*phi*n)
+print(x)
+
+pl.subplot(1,1,1)
+pl.plot(x,y,'o',color='yellow',markeredgecolor='yellow')
+R = 12
+pl.xlim(-R,R)
+pl.ylim(-R,R)
+
+ax = pl.gca()   # stands for get-current-axes
+ax.set_aspect('equal')   # makes x and y axes equally wide  
+ax.xaxis.set_visible(True)
+ax.yaxis.set_visible(False)
+ax.set_facecolor("black")
+
+pl.show()
+##############################################################################
 
 
 
