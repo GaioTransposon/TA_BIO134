@@ -444,29 +444,27 @@ pl.title('Radioactive decay')
 pl.show()
 ##############################################################################
 # Nautilus exercise 
+import matplotlib.pyplot as plt
 from numpy import linspace, pi, cos, sin
-import matplotlib.pyplot as pl
 
-phi = (1+5**.5)/2
-n = linspace(0,1,100)
-print(n)
-x = n**.5 * cos(2*pi*phi*n)
-y = n**.5 * sin(2*pi*phi*n)
-print(x)
+gamma = 1.44
+t = linspace(1,5,100)
+print(t)
+x = gamma **(4*t)*cos(2**pi*t)
+y = gamma **(4*t)*sin(2**pi*t)
 
-pl.subplot(1,1,1)
-pl.plot(x,y,'o',color='yellow',markeredgecolor='yellow')
+plt.subplot(1,1,1)
+plt.plot(x,y,'o',color='yellow',markeredgecolor='yellow')
 R = 12
-pl.xlim(-R,R)
-pl.ylim(-R,R)
+plt.xlim(-R,R)
+plt.ylim(-R,R)
 
-ax = pl.gca()   # stands for get-current-axes
-ax.set_aspect('equal')   # makes x and y axes equally wide  
-ax.xaxis.set_visible(True)
+ax=plt.gca()    # stands for get current axes
+ax.set_aspect('equal')
+ax.xaxis.set_visible(False)
 ax.yaxis.set_visible(False)
-ax.set_facecolor("black")
-
-pl.show()
+ax.set_facecolor('black')
+plt.show()
 ##############################################################################
 
 
