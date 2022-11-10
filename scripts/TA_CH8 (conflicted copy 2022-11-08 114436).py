@@ -443,24 +443,6 @@ pl.title('Radioactive decay')
 
 pl.show()
 ##############################################################################
-# Exercise: DNA damage repair
-import matplotlib.pyplot as pl
-import numpy as np
-import numpy.random as ran
-gy = [0,5,15,30,60]
-leth_wt=[0,0,3,10,50]
-leth_wt_sd=[0,0,2,4,9]
-leth_mt=[0,42,72,89,100]
-leth_mt_sd=[0,2,6,4,0]
-pl.plot(gy,leth_wt,'-o')
-pl.plot(gy,leth_mt,'-o')
-pl.errorbar(gy,leth_wt,yerr=leth_wt_sd,marker='o',linestyle='none',label='wt')
-pl.errorbar(gy,leth_mt,yerr=leth_mt_sd,marker='o',linestyle='none',label='mt')
-pl.xlabel('X-ray dose (Gy)')
-pl.ylabel('Lethality')
-pl.legend()
-pl.title('DNA damage repair')
-##############################################################################
 # Nautilus exercise 
 import matplotlib.pyplot as plt
 from numpy import linspace, pi, cos, sin
