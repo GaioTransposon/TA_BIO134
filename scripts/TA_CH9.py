@@ -31,11 +31,122 @@ for i in range(0, len(s), 4):
 print(dnew)
 
 
-
-
 # Creating arrays
-
 import numpy as np
-anew =    #1: create array with zeros
-for i in range(len(anew)):
-    anew[...] = i + 1   #2: define non-zero values by replacing the points by code.
+anew = np.zeros(shape=(3,4))
+print(anew)
+for i in range(len(anew)):    
+    anew[i,i+1] = i + 1  
+print(anew)
+    
+# Slicing 1 (5)
+import numpy as np
+a = np.array([[0, 1, 0, 0], [5, 0, 0, 0], [0, 0, 3, 0]])
+print(a[:,1])
+# [1 0 0]
+
+# Slicing 2 (5)
+import numpy as np
+a = np.array([[0, 1, 0, 0], [5, 0, 0, 0], [0, 0, 3, 0]])
+#print(a[:][1]])
+# gives error
+
+# Slicing 3 (5)
+import numpy as np
+a = np.array([[0, 1, 0, 0], [5, 0, 0, 0], [0, 0, 3, 0]])
+print(a[:][1])
+# [5 0 0 0]
+
+# Slicing 4 (5)
+l = [[0, 1, 0, 0], [5, 0, 0, 0], [0, 0, 3, 0]]
+print(l[:][1])
+# [5, 0, 0, 0]
+
+# Slicing 5 (5)
+l = [[0, 1, 0, 0], [5, 0, 0, 0], [0, 0, 3, 0]]
+print(l[:,1])
+# gives error (can't access this list like it's an array)
+
+# Accessing a specific element
+v = {'a': {'b': 5, 
+           'd': 8, 
+           'e': 3}, 
+     'f': {'g': 5, 
+           'h': [3, 
+                 4, 
+                 ['z', 2]
+                 ], 
+           'c': 3}}   
+# obtain the following: 
+# {'a': {'b': 5, 'd': 8, 'e': 3}, 'f': {'g': 5, 'h': [3, 4, ['z', 5]], 'c': 3}}
+v['f']['h'][2][1]=5
+print(v)
+
+# Integers and floats in arrays
+import numpy as np
+a = np.array([3, 6, 0])
+a[0] = a[0] + 0.6       # 3  6  0     didn't change because array of integers so it rounds up
+a = a / 3               # 1.  2.  0.  because division makes floats
+a[2] += 2.2             # 1.  2.0   2.2
+a = a / 2               # 0.5  1.0   1.1
+print(a)
+
+# Dividing by zero
+l = [ 3, 5, 7]
+l[0] /= 0
+print(l)      # ZeroDivisionError: division by zero
+
+d = {'a': 1, 'b': 2}
+d['a'] /= 0
+print(d)      # ZeroDivisionError: division by zero
+
+a = np.array([3, 6, 0])
+a = a /0
+print(a)      # [inf inf inf]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
