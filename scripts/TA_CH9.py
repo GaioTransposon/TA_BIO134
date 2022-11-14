@@ -104,19 +104,60 @@ a = np.array([3, 6, 0])
 a = a /0
 print(a)      # [inf inf inf]
 
+#####
+# Regeneration exercise: lists 1 (2)
+def file_to_list(some_file):
+    after = open(some_file)
+    after_lines = after.readlines()
+    after.close()
+    my_list=[]
+    for line in after_lines:
+        sublist = line.split()
+        sublist[0]=int(sublist[0])
+        sublist[2]=float(sublist[2])
+        my_list.append(sublist)
+    return my_list
 
+l_after=file_to_list('/Users/danielagaio/github/TA_BIO134/source_data/bif_after.txt')
+print(l_after[36])
+#####
 
+#####
+# Regeneration exercise: lists 2 (2)
+l_before=file_to_list('/Users/danielagaio/github/TA_BIO134/source_data/bif_before.txt')
 
+for b in l_before:
+    if b[0]==5 and b[1]=='V3':
+        bef=b[2]
+for a in l_after:
+    if a[0]==5 and a[1]=='V3':
+        aft=a[2]
+print(aft/bef)
 
+#####
+# Regeneration exercise: dictionaries 1 (2)
 
+my_dict_main={}
+my_dict_sub={}
 
-
-
-
-
-
-
-
+for line in l_before:
+    fin=line[0]
+    fish=line[1]
+    bif=line[2]
+    
+    
+    
+    
+    
+    #print(key_main, key_sub, line[2])
+    
+    #my_dict_sub[key_sub]=line[2]
+    #my_dict_main[key_main]=my_dict_sub
+    
+print(my_dict_sub)
+my_dict_main['V9']
+# def list_to_dict(some_list):
+#     pass
 
 
     
