@@ -82,6 +82,17 @@ for fruit in d1:
             common.append(fruit)
 time_dict2 = time.time()
 print((time_dict2-time_dict0)/(time_list2-time_list0))
+
+#####
+# Exercise: Test speed dictionaries II
+time_create_dicts0 = time.time()
+d1=list_to_dict(l1)
+d2=list_to_dict(l2)
+time_create_dicts2 = time.time()
+print('time_to_create_dicts:', (time_create_dicts2-time_create_dicts0))
+print('time_to_process_dicts:',(time_dict2-time_dict0) )
+print('time_to_process_lists:',(time_list2-time_list0))
+print('time_to_process_dists_incl_creation:',(time_create_dicts2-time_create_dicts0)+(time_dict2-time_dict0))
 #####
 # Exercise: generating pairs
 l = ['ball','clock','glass','table']
