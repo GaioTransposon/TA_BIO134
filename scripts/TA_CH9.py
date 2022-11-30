@@ -158,6 +158,7 @@ def list_to_dict(some_list):
     return my_dict
 
 d_before = list_to_dict(l_before)
+print(d_before)
 print(d_before['V9'])
 
 #####
@@ -165,6 +166,7 @@ print(d_before['V9'])
 d_after = list_to_dict(l_after)
     
 ratio=d_after['V3'][5]/d_before['V3'][5]
+print(ratio)
 #####  
 
 #####
@@ -199,6 +201,7 @@ def list_to_array(some_list, no_fish, rays):
 rays = ray_dictionary()
 no_fish = 7
 a_before = list_to_array(l_before, no_fish, rays)
+print(a_before)
 print('a_before[4,:]',a_before[4,:])
 print('a_before[:,4]',a_before[:,4])
 #####
@@ -216,10 +219,64 @@ print ('ratio V3, fish5, calculated with arrays:', ratio)
 # Calculations and plotting
 # Bifurcation ratios for one fish
 
+#using lists
+def get_bif_distance(lyst, ray, fish):
+    for sublist in lyst:  #sublist: [fish, ray, bif]
+        if sublist[0] == fish and sublist[1] == ray:
+            return sublist[2]
+ratio = get_bif_distance(l_after, 'V3', 5) / get_bif_distance(l_before, 'V3', 5)
+print('ratio V3, fish5, calculated with lists:', ratio)
 
-  
+#using dictionaries
+ratio = d_after['V3'][5] / d_before['V3'][5]
+print ('ratio V3, fish5, calculated with dictionaries:', ratio)
+
+#using arrays
+ratio = a_after[rays['V3'], 5-1] / a_before[rays['V3'], 5-1]
+print ('ratio V3, fish5, calculated with arrays:', ratio)
+# or:
+ratios = a_after / a_before
+print('bifurcation distance ratios in fish 5:',ratios[:,5-1])
+#####
+
+#####
+# Mean bifurcation ratios
+mean_ratios = np.nanmean(ratios, axis=1)
+print('mean ratios:', mean_ratios)
+
+#####
+# Plotting
+import matplotlib.pyplot as plt 
+
+#for generating plot
+def plotting(ratios, mean_ratios, ray_names):
+    plt.figure()
+    ax = plt.gca()
+    # plot the bifurcation ratios for all the rays for one fish after the other
+    for fishindex in range(ratios.shape[1]):
+        ax.plot(ratios[:,fishindex],'.',label = 'fish {:d}'.format(fishindex+1))
+    ax.plot(mean_ratios,'k', label = 'mean')
+    plt.ylim([0, 1.6])
+    plt.legend()
+    plt.title('Change in bifurcation distances upon fin regeneration.')
+    plt.xlabel('Ray')
+    plt.ylabel('Relative change in bifurcation distance')
+    ax.set_xticks(range(len(ray_names)))
+    ax.set_xticklabels(ray_names)
     
-  
+#for getting a list with ray names
+def names_of_rays(rays):
+    ray_names = 18*['']
+    for ray in rays:
+        ray_names[rays[ray]] = ray
+    return ray_names 
+    
+ray_names = names_of_rays(rays)
+plotting(ratios, mean_ratios, ray_names)
+#####
+
+
+
     
   
     
