@@ -12,6 +12,7 @@ import numpy as np
     
 a=np.array([3,5,2,5,6,2])
 b=np.array([8,4,1,7,6,8])
+print(a, 'is a orginal')
 for i in range(len(a)):   # 0 1 2 3 4 5 
     #print(b[i])          # 8 4 1 7 6 8 
     #print(a[i])          # 3 5 2 5 6 2 
@@ -19,18 +20,11 @@ for i in range(len(a)):   # 0 1 2 3 4 5
         a[i]+=2           # 5     7 8 4
 print(a, 'is a after change ')
 
-#for i in range(len(a)):   # 0 1 2 3 4 5 
-    #print(b[i])          # 8 4 1 7 6 8 
-    #print(a[i])          # 3 5 2 5 6 2 
 
 a=np.array([3,5,2,5,6,2])
 b=np.array([8,4,1,7,6,8])
 print(a, 'is a orginal')
-print(b, 'is b original')
-print(a[a<=b]+2)
-
-
-
+a[a<=b]+2 
 
 #####
 # Colored shapes
@@ -94,60 +88,59 @@ plt.show()
 # CV[0]    0.8 5.5
 # [[2.4,7.0],[6.3,7.0],[0.8,5,5]]
 #####
-# Download data: 
+
+# Download data
+
 import os
-home = os.path.expanduser( '~' )
-cv = home+"/Downloads/wingdisc/wd-large/cv.txt"
-    
-cv = open(cv)
-cv_lines = cv.readlines()
-cv.close()
 
-vp = home+"/Downloads/wingdisc/wd-large/vp.txt"
+def get_list(some_file):
+    #transfer the data from the file into a list
+    home = os.path.expanduser( '~' )
+    cv_or_vp = home+some_file
+    cv_or_vp=open(cv_or_vp)
+    lines = cv_or_vp.readlines()
     
-vp = open(vp)
-vp_lines = vp.readlines()
-vp.close()
+    my_list=[]
+    for line in lines:
+        line=line.strip()
+        line=line.split()
+        my_list.append(line)
+        
+    out=[]
+    
+    if all(len(sub) == 2 for sub in my_list): # then it's vertices
+        # Vertices positions, x and y separate 
+        for i in my_list: 
+            x=float(i[0])
+            y=float(i[1])
+            xy=[x,y]
+            out.append(xy)
+        
+    else: 
+        # it's cell vertices, so parse as follows: 
+        for i in my_list: 
+            inner=[]
+            for j in i: 
+                j=int(j)
+                inner.append(j)
+            out.append(inner)
+            
+    return out 
+  
 
+vp=get_list("/Downloads/wingdisc/wd-large/vp.txt")
+cv=get_list("/Downloads/wingdisc/wd-large/cv.txt")
+   
 # how many vertices does the first cell have?
-print(cv_lines[0])
+print(cv[0])
 # how many vertices does the last cell have?
-print(cv_lines[-1])
+print(cv[-1])
 # y-coordinate of first vertex? 
-print(vp_lines[0])
-#####
-# Making lists for Vertices positions (vp) and Cell vertices (cv)
+print(vp[0])
 
-# Vertices positions 
-my_vp=[]
-for i in vp_lines: 
-    inner=[]
-    i=i.split()
-    x=float(i[0])
-    y=float(i[1])
-    inner.append(x)
-    inner.append(y)
-    my_vp.append(inner)
-print(my_vp)
 
-# Cell vertices 
-my_cv=[]
-for i in cv_lines: 
-    inner=[]
-    i=i.split()
-    for j in i: 
-        j=int(j)
-        inner.append(j)
-    my_cv.append(inner)
-print(my_cv)
 #####
-# Getting the data in a useful format
-# Determine the x,y-positions of the vertices of all cells (µm). 
-# Create two lists of lists, one with the x-positions for each of the cells 
-# and another one for the y-positions. 
-for i in my_cv[0]:
-    print(i, my_vp[i])
-#####
+
 # Warm-up for data format wing disc
 
 x_positions = [4.6, 4.5, 9.1, 2.2, 6.2, 7.6, 5.4, 9.3, 2.5, 2.6, 7.1, 
@@ -162,155 +155,58 @@ out=1
 for i in vertex_numbers:
     out=out*x_positions[i]
 print(out)
-#####
-# Cell areas and centroids
-# A_formula= abs(1/2 * (x1*(y2-y3) + \     x1*y2 - x1*y3
-#                       x2*(y3-y1) + \     x2*y3 - x2*y1
-#                       x3*(y1-y2)))       x3*y1 - x3*y2
 
-# [1,1],[2,3],[4,2]
-A = abs(1/2 * (1*(3-2) + 2*(2-1) + 4*(1-3)))
+##### 
 
-A = abs(1/2 * ((1*3-1*2)+(2*2-2*1)+(4*1-4*3)))
-A
+# Determine the x,y-positions of the vertices of all cells (µm). 
+# Create two lists of lists, one with the x-positions for each of the cells 
+# and another one for the y-positions. 
 
-A1=(1*3 + 2*2 + 4*1)
-A2=(1*2  +  3*4  +  2*1)
-abs(A1-A2)/2
-
-
-#####
-# Wing disc: cell areas
-
-x_list=[1,2,4]
-y_list=[1,3,2]
-
-def make_combos(l):
-    l2=[]
-    for i in l:
-        for j in l:
-            if j!=i:
-                x = [j,i]
-                x_inv = [i,j]
-                if x_inv not in l2:
-                    l2.append(x)
-    return l2
-    
-out = make_combos(y_list)
-print(out)
-            
-for i,j in enumerate(x_list):
-    for k,l in enumerate(x_list):
-        print(i, k)
-
-def get_area(x_list,y_list):
-    polygon_n=len(x_list)
-    
-    combos=make_combos(y_list)
-    
-    to_sum=0
-    for yn,y in enumerate(combos):        
-        print(x_list[yn], y, x_list[yn]*y[1], x_list[yn]*y[0], x_list[yn]*y[0]-x_list[yn]*y[1])
-
-        print(x_list[yn]*y[1]-x_list[yn]*y[0])
-        
-
-            
-
-            
-    
-    
-    
-    
-    
-
-
-
-# =============================================================================
-# my_vp
-# my_cv
-# print(len(my_vp))
-# print(len(my_cv))
-# my_dict={}
-# 
-# counter=0
-# for cell in my_cv:
-#     counter+=1
-#     print(counter,cell)
-#     sub_dict={}
-#     for i in cell:
-#         print(i)
-#         sub_dict[i]=[my_vp[i][0]]
-#         sub_dict[i].append(my_vp[i][1])
-#         print(sub_dict)
-#     my_dict[counter]=sub_dict
-#     
-# print(my_dict)
-# 
-# for a in my_dict:
-#     for b in my_dict[a]:
-#         print(a,b, my_dict[a][b])
-#         
-# my_x=[]
-# my_y=[]
-# for a in my_vp:
-#     print(a)
-#     
-#     
-#     x=float(a[0])
-#     y=float(a[1])
-#     my_x.append(x)
-#     my_y.append(y)
-# =============================================================================
-    
-
-        
-
-
-
-
-
-import numpy as np
-import scipy.stats
-import matplotlib.pyplot as plt
-from matplotlib.patches import Polygon
-from matplotlib.collections import PatchCollection
-
-def get_list(filename, number_type):
-    file = open(filename, 'r')
-    full = file.readlines()
-    file.close()
-    lyst = []
-    for i, lyne in enumerate(full):
-        l = []
-        for s in lyne.split():
-            if number_type == 'f':
-                v = float(s)
-            elif number_type == 'i':    
-                v = int(s)
-            l.append(v)
-        lyst.append(l)
-    return lyst
-
-def cell_positions(cv, vp, p):
+def cell_positions(cv, vp, x_or_y):
+    #get the x,y-positions of the vertices per cell
     cp=[]
     for i, c in enumerate(cv):
         cp.append([])
         for v in c:
-            if p == 'x':
+            print(c)
+            if x_or_y == 'x':
                 cp[i].append(vp[v][0])
             else:
                 cp[i].append(vp[v][1])
     return cp
+
+x_list=cell_positions(cv,vp,'x')
+y_list=cell_positions(cv,vp,'y')
+
+##### 
+
+#calculate cell areas
+def polygonArea(my_x_list, my_y_list):
     
-def area(cpx, cpy):
-    a = len(cpy) * [0]
-    for i in range(len(cpy)):
-        for j in range(len(cpy[i])):
-            a[i] += cpx[i][j] * cpy[i][j-1] - cpx[i][j-1] * cpy[i][j]
-        a[i] = a[i] * 0.5
-    return np.array(a)
+    area = 0.0
     
+    n=len(my_x_list)
+
+    j = n - 1
+    for i in range(0,n):
+        print(i)
+
+        area += (my_x_list[j] + my_x_list[i]) * (my_y_list[j] - my_y_list[i])
+        j = i   # j is previous vertex to i
+    area=area/2
+    
+    return abs(area)
+
+print("area of first cell is: ", polygonArea(x_list[0],y_list[0]))
+print("area of second cell is: ", polygonArea(x_list[1],y_list[1]))
+print("area of last cell is: ", polygonArea(x_list[-1],y_list[-1]))
+
+##### 
+
+import scipy
+
+# Cell centroids and distance to centre (0,0)
+
 def centroid(cpx, cpy, area):
     xcenter = len(cpy) * [0]
     ycenter = len(cpy) * [0]
@@ -369,11 +265,11 @@ def draw_disc(cpx, cpy, area, size):
     plt.title(size+' wing disc')
 
 def analyze_disc(size):    
-    cv = get_list(home+'/Downloads/wingdisc/wd-'+size+'/cv.txt', 'i')
-    vp = get_list(home+'/Downloads/wingdisc/wd-'+size+'/vp.txt', 'f')
+    cv = get_list('wingdisc/wd-'+size+'/cv.txt', 'i')
+    vp = get_list('wingdisc/wd-'+size+'/vp.txt', 'f')
     cpx = cell_positions(cv, vp, 'x')
     cpy = cell_positions(cv, vp, 'y')
-    areas = area(cpx, cpy)
+    areas = polygonArea(cpx, cpy)
     xcenter, ycenter = centroid(cpx, cpy, areas)
     dist_center = distance_center(xcenter, ycenter)
     afit, bfit, t, Pt = statistical_test(areas, dist_center)
@@ -383,8 +279,8 @@ def analyze_disc(size):
     return ans
 
 
-cpx_l, cpy_l, area_l, xcenter_l, ycenter_l, dist_center_l, afit_l, bfit_l,t_l, Pt_l = analyze_disc('large')
-
+cpx_l, cpy_l, area_l, xcenter_l, ycenter_l, dist_center_l, afit_l, bfit_l,\
+t_l, Pt_l = analyze_disc('large')
 print ('values for the large disc:')
 print ('x-positions first cell in large disc:',cpx_l[0])
 print ('y-positions first cell in large disc:',cpy_l[0])
@@ -412,81 +308,3 @@ print ('t-value small disc', t_s)
 print ('t-test p-value small disc', Pt_s)
 
 plt.show()
-    
-
-
-        
-        
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
